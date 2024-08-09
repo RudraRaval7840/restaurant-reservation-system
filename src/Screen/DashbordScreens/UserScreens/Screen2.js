@@ -5,6 +5,9 @@ const Screen2 = () => {
   return (
     <View>
       <Text>Screen2</Text>
+      <View style={{ borderWidth:1, }}>
+<Text>gfgfrweg</Text>
+      </View>
     </View>
   )
 }

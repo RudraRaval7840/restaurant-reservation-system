@@ -7,7 +7,6 @@ const initialState = {
 };
 
 const AllRestaurentReducer = (state = initialState, action) => {
-  console.log('API CALL', action.type);
   switch (action.type) {
     case GET_ALL_RESTAURANT_LOADING:
       return {

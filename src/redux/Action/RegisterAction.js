@@ -2,7 +2,7 @@ import axios from 'axios';
 import { RegisterApi } from './All_API_DATA';
 import { REGISTER_FAILED, REGISTER_LOADING, REGISTER_SUCCESS } from '../Type';
 
-export const RegisterAction = (name, email, password, navigation) => {
+export const RegisterAction = (name, email, password,profileImage, navigation) => {
   return async dispatch => {
     dispatch({
       type: REGISTER_LOADING,
@@ -13,7 +13,10 @@ export const RegisterAction = (name, email, password, navigation) => {
         username: name,
         email: email,
         password: password,
+        image: profileImage,
+
       };
+      console.log(data ,'ddsgsdg');
 
       const config = {
         method: 'post',
@@ -23,6 +26,7 @@ export const RegisterAction = (name, email, password, navigation) => {
         },
         data: JSON.stringify(data),
       };
+      console.log(config,'sifnr');
 
       const response = await axios.request(config);
 

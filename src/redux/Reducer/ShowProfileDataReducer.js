@@ -1,31 +1,31 @@
-import { LOGIN_FAILED, LOGIN_LOADING, LOGIN_SUCCESS } from "../Type";
+import { SHOW_PROFILE_DATA_FAILED, SHOW_PROFILE_DATA_LOADING, SHOW_PROFILE_DATA_SUCCESS } from "../Type";
 
 const initialState = {
   loading: false,
-  Login: [],
+  ShowProfile: [],
   error: null,
 };
 
-const RegisterReducer = (state = initialState, action) => {
+const ShowProfileReducer = (state = initialState, action) => {
   // console.log('API CALL', action.type);
   switch (action.type) {
-    case LOGIN_LOADING:
+    case SHOW_PROFILE_DATA_LOADING:
       return {
         ...state,
         loading: true,
       };
-    case LOGIN_SUCCESS:
+    case SHOW_PROFILE_DATA_SUCCESS:
       return {
         ...state,
         loading: false,
-        Login: action.payload,
+        ShowProfile: action.payload,
         error: null,
       };
-    case LOGIN_FAILED:
+    case SHOW_PROFILE_DATA_FAILED:
       return {
         ...state,
         loading: false,
-        Login: [],
+        ShowProfile: [],
         error: action.payload.error,
       };
     default:
@@ -33,4 +33,4 @@ const RegisterReducer = (state = initialState, action) => {
   }
 };
 
-export default RegisterReducer;
+export default ShowProfileReducer;

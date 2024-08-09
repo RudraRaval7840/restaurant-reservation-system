@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const NewPasswordReducer = (state = initialState, action) => {
-  console.log('API CALL', action.type);
+  // console.log('API CALL', action.type);
   switch (action.type) {
     case NEW_PASSWORD_LOADING:
       return {

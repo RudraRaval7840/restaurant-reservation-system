@@ -1,22 +1,22 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { GET_ALL_RESTAURANT_FAILED, GET_ALL_RESTAURANT_LOADING, GET_ALL_RESTAURANT_SUCCESS } from '../Type';
-import { ShowAllRestaurant } from './All_API_DATA';
+import { GET_ALL_USER_FAILED, GET_ALL_USER_LOADING, GET_ALL_USER_SUCCESS } from '../Type';
+import { GetAllUser } from './All_API_DATA';
 
-export const AllRestaurentAction = () => {
+export const GetAllUserAction = () => {
   return async dispatch => {
     dispatch({
-      type: GET_ALL_RESTAURANT_LOADING,
+      type: GET_ALL_USER_LOADING,
     });
     try {
-      // const token = await AsyncStorage.getItem('token');
+      const token = await AsyncStorage.getItem('token');
       let config = {
         method: 'get',
-        url: ShowAllRestaurant,
+        url: GetAllUser,
         headers: {
           'Content-Type': 'application/json',
-          // authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       };
       //   console.log('config AvailableBooks ---->>', config);
@@ -24,26 +24,26 @@ export const AllRestaurentAction = () => {
       axios
         .request(config)
         .then(response => {
-          console.log('Get All Restaurent Data    >>>>', response.data.data);
+          console.log('Get All USER Data    >>>>', response.data);
           //   console.log('token===', token);
           dispatch({
-            type: GET_ALL_RESTAURANT_SUCCESS,
+            type: GET_ALL_USER_SUCCESS,
             payload: response.data,
           });
         })
         .catch(error => {
-          console.log('Get Restaurent Data failed *==>>>', error);
+          console.log('Get USER Data failed ===>>>', error);
           dispatch({
-            type: GET_ALL_RESTAURANT_FAILED,
+            type: GET_ALL_USER_FAILED,
             payload: {
               error: 'Something went wrong, please try again later.',
             },
           });
         });
     } catch (error) {
-      console.log('Get Restaurent Data failed', error);
+      console.log('Get USER Data failed', error);
       dispatch({
-        type: GET_ALL_RESTAURANT_FAILED,
+        type: GET_ALL_USER_FAILED,
         payload: {
           error: 'Something went wrong, please try again later.',
         },

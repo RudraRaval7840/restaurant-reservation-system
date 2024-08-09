@@ -1,22 +1,23 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { GET_ALL_RESTAURANT_FAILED, GET_ALL_RESTAURANT_LOADING, GET_ALL_RESTAURANT_SUCCESS } from '../Type';
-import { ShowAllRestaurant } from './All_API_DATA';
+import { AvailableBooks } from './AAPI-Link';
+import { POPULAR_RESTAURENT_FAILED, POPULAR_RESTAURENT_LOADING, POPULAR_RESTAURENT_SUCCESS } from '../Type';
+import { PopularRestaurant } from './All_API_DATA';
 
-export const AllRestaurentAction = () => {
+export const PopularRestaurantAction = () => {
   return async dispatch => {
     dispatch({
-      type: GET_ALL_RESTAURANT_LOADING,
+      type: POPULAR_RESTAURENT_LOADING,
     });
     try {
-      // const token = await AsyncStorage.getItem('token');
+      const token = await AsyncStorage.getItem('token');
       let config = {
         method: 'get',
-        url: ShowAllRestaurant,
+        url: PopularRestaurant,
         headers: {
           'Content-Type': 'application/json',
-          // authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       };
       //   console.log('config AvailableBooks ---->>', config);
@@ -24,26 +25,26 @@ export const AllRestaurentAction = () => {
       axios
         .request(config)
         .then(response => {
-          console.log('Get All Restaurent Data    >>>>', response.data.data);
+          console.log('PopularRestaurant Data    >>>>', response.data.data);
           //   console.log('token===', token);
           dispatch({
-            type: GET_ALL_RESTAURANT_SUCCESS,
+            type: POPULAR_RESTAURENT_SUCCESS,
             payload: response.data,
           });
         })
         .catch(error => {
-          console.log('Get Restaurent Data failed *==>>>', error);
+          console.log('PopularRestaurant Data failed ===>>>', error);
           dispatch({
-            type: GET_ALL_RESTAURANT_FAILED,
+            type: POPULAR_RESTAURENT_FAILED,
             payload: {
               error: 'Something went wrong, please try again later.',
             },
           });
         });
     } catch (error) {
-      console.log('Get Restaurent Data failed', error);
+      console.log('PopularRestaurantData failed', error);
       dispatch({
-        type: GET_ALL_RESTAURANT_FAILED,
+        type: POPULAR_RESTAURENT_FAILED,
         payload: {
           error: 'Something went wrong, please try again later.',
         },

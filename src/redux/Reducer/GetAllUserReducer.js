@@ -1,31 +1,31 @@
-import { LOGIN_FAILED, LOGIN_LOADING, LOGIN_SUCCESS } from "../Type";
+import { GET_ALL_USER_FAILED, GET_ALL_USER_LOADING, GET_ALL_USER_SUCCESS } from "../Type";
 
 const initialState = {
   loading: false,
-  Login: [],
+  GetAllUser: [],
   error: null,
 };
 
-const RegisterReducer = (state = initialState, action) => {
+const GetAllUserReducer = (state = initialState, action) => {
   // console.log('API CALL', action.type);
   switch (action.type) {
-    case LOGIN_LOADING:
+    case GET_ALL_USER_LOADING:
       return {
         ...state,
         loading: true,
       };
-    case LOGIN_SUCCESS:
+    case GET_ALL_USER_SUCCESS:
       return {
         ...state,
         loading: false,
-        Login: action.payload,
+        GetAllUser: action.payload,
         error: null,
       };
-    case LOGIN_FAILED:
+    case GET_ALL_USER_FAILED:
       return {
         ...state,
         loading: false,
-        Login: [],
+        GetAllUser: [],
         error: action.payload.error,
       };
     default:
@@ -33,4 +33,4 @@ const RegisterReducer = (state = initialState, action) => {
   }
 };
 
-export default RegisterReducer;
+export default GetAllUserReducer;

@@ -13,8 +13,10 @@ export const LoginAction = (email, password, navigation) => {
       const data = {
         email: email,
         password: password,
+        // email: 'rudraraval5484@gmail.com',
+        // password: '123',
       };
-
+      
       const config = {
         method: 'post',
         url: LoginApi,
@@ -23,6 +25,7 @@ export const LoginAction = (email, password, navigation) => {
         },
         data: JSON.stringify(data),
       };
+      console.log(config,'data');
 
       const response = await axios.request(config);
 

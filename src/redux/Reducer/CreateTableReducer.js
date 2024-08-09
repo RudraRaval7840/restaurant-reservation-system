@@ -1,31 +1,31 @@
-import { LOGIN_FAILED, LOGIN_LOADING, LOGIN_SUCCESS } from "../Type";
+import { CREATE_TABLE_FAILED, CREATE_TABLE_LOADING, CREATE_TABLE_SUCCESS } from "../Type";
 
 const initialState = {
   loading: false,
-  Login: [],
+  CreateTable: [],
   error: null,
 };
 
-const RegisterReducer = (state = initialState, action) => {
+const CreateTableReducer = (state = initialState, action) => {
   // console.log('API CALL', action.type);
   switch (action.type) {
-    case LOGIN_LOADING:
+    case CREATE_TABLE_LOADING:
       return {
         ...state,
         loading: true,
       };
-    case LOGIN_SUCCESS:
+    case CREATE_TABLE_SUCCESS:
       return {
         ...state,
         loading: false,
-        Login: action.payload,
+        CreateTable: action.payload,
         error: null,
       };
-    case LOGIN_FAILED:
+    case CREATE_TABLE_FAILED:
       return {
         ...state,
         loading: false,
-        Login: [],
+        CreateTable: [],
         error: action.payload.error,
       };
     default:
@@ -33,4 +33,4 @@ const RegisterReducer = (state = initialState, action) => {
   }
 };
 
-export default RegisterReducer;
+export default CreateTableReducer;

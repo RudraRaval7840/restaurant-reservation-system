@@ -1,4 +1,4 @@
-import { LOGIN_FAILED, LOGIN_LOADING, LOGIN_SUCCESS, VERIFY_OTP_FAILED, VERIFY_OTP_LOADING, VERIFY_OTP_SUCCESS } from "../Type";
+import {VERIFY_OTP_FAILED, VERIFY_OTP_LOADING, VERIFY_OTP_SUCCESS} from "../Type";
 
 const initialState = {
   loading: false,
@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const VerifyOtpReducer = (state = initialState, action) => {
-  console.log('API CALL', action.type);
+  // console.log('API CALL', action.type);
   switch (action.type) {
     case VERIFY_OTP_LOADING:
       return {

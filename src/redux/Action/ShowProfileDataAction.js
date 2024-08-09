@@ -1,49 +1,49 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { GET_ALL_RESTAURANT_FAILED, GET_ALL_RESTAURANT_LOADING, GET_ALL_RESTAURANT_SUCCESS } from '../Type';
-import { ShowAllRestaurant } from './All_API_DATA';
+import { SHOW_PROFILE_DATA_FAILED, SHOW_PROFILE_DATA_LOADING, SHOW_PROFILE_DATA_SUCCESS } from '../Type';
+import {ShowProfileData } from './All_API_DATA';
 
-export const AllRestaurentAction = () => {
+export const ShowProfileDataAction = () => {
   return async dispatch => {
     dispatch({
-      type: GET_ALL_RESTAURANT_LOADING,
+      type: SHOW_PROFILE_DATA_LOADING,
     });
     try {
-      // const token = await AsyncStorage.getItem('token');
+      const token = await AsyncStorage.getItem('token');
       let config = {
         method: 'get',
-        url: ShowAllRestaurant,
+        url: ShowProfileData,
         headers: {
           'Content-Type': 'application/json',
-          // authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       };
-      //   console.log('config AvailableBooks ---->>', config);
+        // console.log('config ShowProfileData ---->>', config);
 
       axios
         .request(config)
         .then(response => {
-          console.log('Get All Restaurent Data    >>>>', response.data.data);
+          console.log('ShowProfileData Data    >>>>', response.data);
           //   console.log('token===', token);
           dispatch({
-            type: GET_ALL_RESTAURANT_SUCCESS,
+            type: SHOW_PROFILE_DATA_SUCCESS,
             payload: response.data,
           });
         })
         .catch(error => {
-          console.log('Get Restaurent Data failed *==>>>', error);
+          console.log('ShowProfileData failed ===>>>', error);
           dispatch({
-            type: GET_ALL_RESTAURANT_FAILED,
+            type: SHOW_PROFILE_DATA_FAILED,
             payload: {
               error: 'Something went wrong, please try again later.',
             },
           });
         });
     } catch (error) {
-      console.log('Get Restaurent Data failed', error);
+      console.log('ShowProfileData failed', error);
       dispatch({
-        type: GET_ALL_RESTAURANT_FAILED,
+        type: SHOW_PROFILE_DATA_FAILED,
         payload: {
           error: 'Something went wrong, please try again later.',
         },

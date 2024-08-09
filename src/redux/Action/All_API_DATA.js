@@ -1,13 +1,14 @@
-exports.LoginApi =
-  'https://expressions-asin-mining-underground.trycloudflare.com/api/login',
-  exports.RegisterApi =
-    'https://expressions-asin-mining-underground.trycloudflare.com/api/register';
+const link = 'https://uncertainty-laboratory-mel-springfield.trycloudflare.com';
 
-exports.ForgotPassword =
-  'https://expressions-asin-mining-underground.trycloudflare.com/api/forgot-password';
-
-exports.VerifyOtp =
-  'https://expressions-asin-mining-underground.trycloudflare.com/api/verify-otp';
-
-exports.NewPassword =
-  'https://expressions-asin-mining-underground.trycloudflare.com/api/reset-password';
+(exports.LoginApi = `${link}/api/login`),
+  (exports.RegisterApi = `${link}/api/register`);
+exports.ForgotPassword = `${link}/api/forgot-password`;
+exports.VerifyOtp = `${link}/api/verify-otp`;
+exports.NewPassword = `${link}/api/reset-password`;
+exports.PopularRestaurant = `${link}/api/restaurant/getPopularRestaurants`;
+exports.GetAllUser = `${link}/api/user/get-user`;
+exports.CreateRestaurant = `${link}/api/restaurant/createRestaurant`;
+exports.Reservation = `${link}/api/reservation/getAllReservation`;
+exports.ShowAllRestaurant = `${link}/api/restaurant/getAllRestaurant`;
+exports.CreateTable = `${link}/api/table/create-table`;
+exports.ShowProfileData = `${link}/api/user/getUserByToken`;

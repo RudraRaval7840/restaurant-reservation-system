@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const ForgotPasswordReducer = (state = initialState, action) => {
-  console.log('API CALL', action.type);
+  // console.log('API CALL', action.type);
   switch (action.type) {
     case FORGOT_PASSWORD_LOADING:
       return {
