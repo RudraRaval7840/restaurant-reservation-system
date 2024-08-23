@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { LOGIN_FAILED, LOGIN_LOADING, LOGIN_SUCCESS } from '../Type';
-import { LoginApi } from './All_API_DATA';
+import {LOGIN_FAILED, LOGIN_LOADING, LOGIN_SUCCESS} from '../Type';
+import {LoginApi} from './All_API_DATA';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const LoginAction = (email, password, navigation) => {
@@ -9,14 +9,18 @@ export const LoginAction = (email, password, navigation) => {
       type: LOGIN_LOADING,
     });
 
+    const data = {
+      email: email,
+      password: password,
+
+      email: 'pateltirth220@gmail.com',
+      password: '123',
+
+      // email: 'tirthp990@gmail.com',
+      // password: '123',
+    };
+
     try {
-      const data = {
-        email: email,
-        password: password,
-        // email: 'rudraraval5484@gmail.com',
-        // password: '123',
-      };
-      
       const config = {
         method: 'post',
         url: LoginApi,
@@ -25,7 +29,7 @@ export const LoginAction = (email, password, navigation) => {
         },
         data: JSON.stringify(data),
       };
-      console.log(config,'data');
+      console.log(config, 'data');
 
       const response = await axios.request(config);
 
@@ -36,28 +40,22 @@ export const LoginAction = (email, password, navigation) => {
         payload: response.data,
       });
 
-      if (
-        response.data.error &&
-        response.data.message === 'Book already exists'
-      ) {
-        throw new Error('Book already exists');
-      }
-
-      await AsyncStorage.setItem('token', response.data.accessToken);
+      // Save the entire response data in AsyncStorage
+      await AsyncStorage.setItem('loginData', JSON.stringify(response.data));
 
       const role = response.data.data.role;
       console.log(role, '33333');
 
-      if (role === 'admin') {
+      // Navigate based on the user's role
+      if (role === 'superadmin') {
         navigation.navigate('AdminHomeScreen');
       } else {
-        navigation.navigate('UserHomeScreen');
+        navigation.navigate('UserHomeScreen', {loginData: response.data});
       }
 
       return response.data;
     } catch (error) {
       console.log('Error during login:', error);
-
       dispatch({
         type: LOGIN_FAILED,
         payload: {

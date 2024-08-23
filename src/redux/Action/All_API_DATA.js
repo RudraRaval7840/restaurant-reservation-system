@@ -1,4 +1,4 @@
-const link = 'https://uncertainty-laboratory-mel-springfield.trycloudflare.com';
+const link = 'https://ny-field-milk-outlined.trycloudflare.com';
 
 (exports.LoginApi = `${link}/api/login`),
   (exports.RegisterApi = `${link}/api/register`);
@@ -12,3 +12,8 @@ exports.Reservation = `${link}/api/reservation/getAllReservation`;
 exports.ShowAllRestaurant = `${link}/api/restaurant/getAllRestaurant`;
 exports.CreateTable = `${link}/api/table/create-table`;
 exports.ShowProfileData = `${link}/api/user/getUserByToken`;
+exports.requestResturant = `${link}/api/requestrestaurant/submitRequest`;
+exports.PaddingResturantRequest = `${link}/api/requestrestaurant/viewpending`
+exports.ApprovedRejected =`${link}/api/requestrestaurant/handlerequest`
+exports.GetMyRestaurant = `${link}/api/requestrestaurant/getmyrestaurant`
+// https://ny-field-milk-outlined.trycloudflare.com/api/requestrestaurant/getmyrestaurant

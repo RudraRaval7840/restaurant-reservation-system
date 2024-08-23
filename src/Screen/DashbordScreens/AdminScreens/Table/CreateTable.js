@@ -38,7 +38,7 @@ const CreateTable = ({ navigation }) => {
     }
   }, [restaurants]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async () => { 
     if (!tableNumber || !restaurantId || !capacity) {
       Alert.alert('Error', 'Please fill all the fields');
       return;
@@ -56,12 +56,7 @@ const CreateTable = ({ navigation }) => {
           <Ionicons name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Create Table</Text>
-        <TouchableOpacity 
-          style={styles.iconButton}
-          onPress={() => navigation.navigate('CreateRestaurent')}
-        >
-          <Ionicons name="add" size={30} color="black" />
-        </TouchableOpacity>
+        
       </View>
       <View style={styles.formContainer}>
         <TextInput

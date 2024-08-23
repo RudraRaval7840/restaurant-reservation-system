@@ -17,6 +17,11 @@ const Profile = ({navigation}) => {
     dispatch(ShowProfileDataAction());
   }, [dispatch]);
 
+const newdate = profiledata.DOB
+
+console.log(newdate, 'newdate');
+
+
 
   return (
     <View style={styles.container}>
@@ -56,7 +61,7 @@ const Profile = ({navigation}) => {
           <View style={styles.detailRow}>
             <Text style={styles.label}>Date of Birth</Text>
             <Text style={styles.value}>
-              {profiledata.DOB.slice(0, 10)}
+              {profiledata.DOB}
             </Text>
           </View>
           <View style={styles.detailRow}>
@@ -78,10 +83,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  // i have project in react native and redux impliment all are set up and workproperly but i want yor help like when user or admin both are login first time then show login page otherwise show profile page
-  // i already impliment and set up redux so i want like action ane reducer file 
   header: {
-    borderWidth: 1,
+    // borderWidth: 1,
     height: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',

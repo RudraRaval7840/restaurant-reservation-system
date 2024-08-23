@@ -30,7 +30,7 @@ export const updateUserAction = (
       });
       let config = {
         method: 'put',
-        url: ` https://uncertainty-laboratory-mel-springfield.trycloudflare.com/api/user/edit-profile`,
+        url: ` https://compliance-obligation-pursuant-repairs.trycloudflare.com/api/user/edit-profile`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,

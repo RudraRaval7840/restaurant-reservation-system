@@ -17,10 +17,13 @@ import CreateTable from './src/Screen/DashbordScreens/AdminScreens/Table/CreateT
 import RestaurantDetails from './src/Screen/DashbordScreens/AdminScreens/Restaurant/RestaurantDetails';
 import Profile from './src/Screen/DashbordScreens/AdminScreens/Drawer/Profile';
 import EditProfile from './src/Screen/DashbordScreens/AdminScreens/Drawer/EditProfile';
+import RestaurantAdminHome from './src/Screen/DashbordScreens/RestaurantAdmin/RestaurantAdminHome/RestaurantAdminHome';
+import AddRequestRestaurant from './src/Screen/DashbordScreens/UserScreens/AddRequestRestaurant';
+import PandingRequest from './src/Screen/DashbordScreens/AdminScreens/User/PandingRequest';
+import AdminRestaurantDetails from './src/Screen/DashbordScreens/AdminScreens/Restaurant/AdminRestaurantDetails';
 
 const AppNavigater = () => {
   const Stack = createNativeStackNavigator();
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -64,6 +67,13 @@ const AppNavigater = () => {
           component={UserHomeScreen}
           options={{headerShown: false}}
         />
+
+        <Stack.Screen
+          name="RestaurantAdminHome"
+          component={RestaurantAdminHome}
+          options={{headerShown: false}}
+        />
+
         <Stack.Screen
           name="User"
           component={User}
@@ -74,25 +84,45 @@ const AppNavigater = () => {
           component={ShowAllRestaurant}
           options={{headerShown: false}}
         />
-        
+        {/* AdminRestaurantDetails */}
+        <Stack.Screen
+          name="AdminRestaurantDetails"
+          component={AdminRestaurantDetails}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="CreateRestaurent"
           component={CreateRestaurent}
           options={{headerShown: false}}
         />
-        
+
         <Stack.Screen
           name="CreateTable"
           component={CreateTable}
           options={{headerShown: false}}
         />
-       
-       <Stack.Screen
+
+        <Stack.Screen
           name="RestaurantDetails"
           component={RestaurantDetails}
           options={{headerShown: false}}
-        /> 
- 
+        />
+
+        {/* AddRequestRestaurant */}
+
+        <Stack.Screen
+          name="AddRequestRestaurant"
+          component={AddRequestRestaurant}
+          options={{headerShown: false}}
+        />
+        {/* PandingRequest */}
+
+        <Stack.Screen
+          name="PandingRequest"
+          component={PandingRequest}
+          options={{headerShown: false}}
+        />
+
         <Stack.Screen
           name="Profile"
           component={Profile}

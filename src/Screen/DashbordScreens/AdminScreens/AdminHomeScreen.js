@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -7,12 +7,13 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { AllReservationAction } from '../../../redux/Action/AllReservationAction';
+import {useDispatch, useSelector} from 'react-redux';
+import {AllReservationAction} from '../../../redux/Action/AllReservationAction';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
+import {GetAllPadingRequestAction} from '../../../redux/Action/GetAllPadingRequestAction';
 
-const AdminHomeScreen = ({ navigation }) => {
+const AdminHomeScreen = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const sections = [
@@ -47,31 +48,45 @@ const AdminHomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const allReservations = useSelector(
-    state => state.reservation.Reservation.data?.data || []
+    state => state.reservation.Reservation.data?.data || [],
   );
   const allCount = useSelector(
-    state => state.reservation.Reservation.TotalReservaation
+    state => state.reservation.Reservation.TotalReservaation,
   );
   console.log(allCount, 'allCount');
-  
-  const profiledata = useSelector(
-    state => state.Register.Login.data,
-  );
-  console.log(profiledata, 'profile5678976data');
+  const pandingRequest = useSelector(state => state.pandingRequest?.GetAllPadingRequest?.count || 0);
+  console.log('pandingRequest', pandingRequest);
+
+  const profiledata = useSelector(state => state.Register.Login.data);
+  console.log(profiledata, 'profile-data');
   useEffect(() => {
     dispatch(AllReservationAction());
+    dispatch(GetAllPadingRequestAction());
   }, [dispatch]);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Image
-            source={{uri: profiledata.image}}
-            style={styles.logo}
-          />
+          <Image source={{uri: profiledata.image}} style={styles.logo} />
         </TouchableOpacity>
         <Text style={styles.title}>{profiledata.username}</Text>
+        <TouchableOpacity style={{justifyContent: 'center'}}
+          onPress={() => navigation.navigate('PandingRequest')}>
+          <Ionicons name="notifications" size={33} color="black" />
+          <Text
+            style={{
+              position: 'absolute',
+              fontSize: 15,
+              color: 'white',
+              alignSelf: 'center',
+              textAlign: 'center',
+              justifyContent: 'center',
+              fontWeight: 'bold',
+            }}>
+            {pandingRequest}
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.content}>
         <View style={styles.sectionContainer}>
@@ -79,11 +94,10 @@ const AdminHomeScreen = ({ navigation }) => {
             numColumns={3}
             columnWrapperStyle={styles.columnWrapper}
             data={sections}
-            renderItem={({ item }) => (
+            renderItem={({item}) => (
               <TouchableOpacity
                 style={styles.sectionItem}
-                onPress={() => navigation.navigate(item.screen)}
-              >
+                onPress={() => navigation.navigate(item.screen)}>
                 <Image source={item.img} style={styles.image} />
                 <Text style={styles.sectionTitle}>{item.title}</Text>
               </TouchableOpacity>
@@ -101,7 +115,7 @@ const AdminHomeScreen = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           data={allReservations}
           keyExtractor={item => item._id.toString()}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <View style={styles.reservationItem}>
               <View style={styles.reservationInfo}>
                 <Text style={styles.reservationTitleText}>{item.username}</Text>
@@ -129,27 +143,25 @@ const AdminHomeScreen = ({ navigation }) => {
         style={styles.modalContainer}
         animationIn="slideInLeft"
         animationOut="slideOutLeft"
-        backdropOpacity={0.5} 
-      >
+        backdropOpacity={0.5}>
         <View style={styles.modalView}>
           <View style={styles.modalHeader}>
             <Image
-              source={{ uri: profiledata.image }}
+              source={{uri: profiledata.image}}
               style={styles.profilePic}
             />
-            {/* <Text style={styles.modalHeaderText}>{profiledata.username}</Text> */}
+            <Text style={styles.modalHeaderText}>{profiledata.username}</Text>
           </View>
           <FlatList
             data={profile}
             keyExtractor={item => item.id.toString()}
-            renderItem={({ item }) => (
+            renderItem={({item}) => (
               <TouchableOpacity
                 style={styles.modalItem}
                 onPress={() => {
                   setModalVisible(false);
                   navigation.navigate(item.screen);
-                }}
-              >
+                }}>
                 <Text style={styles.modalItemText}>{item.title}</Text>
               </TouchableOpacity>
             )}
@@ -261,7 +273,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,

@@ -1,6 +1,6 @@
 import {
   View,
-  Text,  
+  Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
@@ -14,17 +14,18 @@ import {useRoute, useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {updateUserAction} from '../../../../redux/Action/UserEditAction';
 import ImagePicker from 'react-native-image-crop-picker';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-  const EditProfile = () => {
+const EditProfile = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const {profiledata} = route.params;
-  const dob = `${profiledata.DOB.slice(0, 10)}`;
+  // const dob = profiledata.DOB.slice(0, 10);
   const [username, setUsername] = useState(profiledata?.username || '');
   const [email, setEmail] = useState(profiledata?.email || '');
-  const [DOB, setDOB] = useState(dob || '');
+  const [DOB, setDOB] = useState(profiledata.DOB || '');
   const [city, setCity] = useState(profiledata?.City || '');
   const [area, setArea] = useState(profiledata?.Area || '');
   const [gender, setGender] = useState(profiledata?.Gender || '');
@@ -36,7 +37,7 @@ import ImagePicker from 'react-native-image-crop-picker';
   ];
 
   const handleSave = () => {
-  console.log('Updated Data:', {
+    console.log('Updated Data:', {
       username,
       email,
       DOB,
@@ -74,6 +75,11 @@ import ImagePicker from 'react-native-image-crop-picker';
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
+        <TouchableOpacity
+        onPress={() => navigation.goBack()}
+          style={{position: 'absolute', left: 10}}>
+          <Ionicons name="arrow-back-sharp" size={30} color="black" />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Edit Profile</Text>
       </View>
       <View style={styles.formSection}>
@@ -94,7 +100,7 @@ import ImagePicker from 'react-native-image-crop-picker';
         />
         <TextInput
           style={styles.input}
-          placeholder="Date of Birth"
+          placeholder="YYYY-MM-DD"
           value={DOB}
           onChangeText={setDOB}
         />
@@ -139,9 +145,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
+    flexDirection: 'row',
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#333',
   },
@@ -190,4 +197,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditProfile;
+export default EditProfile 

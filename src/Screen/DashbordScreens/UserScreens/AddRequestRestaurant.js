@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -9,10 +10,11 @@ import {
   Alert,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
-import {CreateRestaurantAction} from '../../../../redux/Action/CreateRestaurantAction';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useState} from 'react';
+import {AddRequestRestaurantAction} from '../../../redux/Action/AddRequestRestaurantAction';
+
 const CreateRestaurent = ({navigation}) => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
@@ -20,7 +22,25 @@ const CreateRestaurent = ({navigation}) => {
   const [area, setArea] = useState('');
   const [contact, setContact] = useState('');
   const [image, setImage] = useState(null);
+  const [userData, setUserData] = useState(null); // State to store user data
+
   const dispatch = useDispatch();
+console.log(userData,"userData");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedData = await AsyncStorage.getItem('loginData');
+        if (storedData) {
+          setUserData(JSON.parse(storedData));
+        }
+      } catch (error) {
+        console.log('Error retrieving data from AsyncStorage:', error);
+      }
+    };
+
+    fetchData(); // Fetch the stored data when the component mounts
+  }, []);
 
   const handleAddRestaurant = async () => {
     if (!name || !address || !contact || !city || !area || !image) {
@@ -29,13 +49,14 @@ const CreateRestaurent = ({navigation}) => {
     }
 
     dispatch(
-      CreateRestaurantAction(
+      AddRequestRestaurantAction(
         name,
         address,
         contact,
         image,
         city,
         area,
+        userData?.data?._id,
         navigation,
       ),
     );
@@ -64,15 +85,10 @@ const CreateRestaurent = ({navigation}) => {
           onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
-        <Text>Add Restaurant</Text>
-        {/* <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.navigate('CreateRestaurent')}>
-          <Ionicons name="add" size={30} color="black" />
-        </TouchableOpacity> */}
+        <Text>Add Restaurant Request</Text>
       </View>
       <View style={styles.content}>
-        <Text style={styles.title}>Add Restaurant</Text>
+        <Text style={styles.title}>Add Restaurant Request</Text>
 
         <TouchableOpacity
           style={styles.imageContainer}
@@ -86,6 +102,13 @@ const CreateRestaurent = ({navigation}) => {
             <Text style={styles.imagePlaceholder}>Select an image</Text>
           )}
         </TouchableOpacity>
+
+        {/* Displaying User Data */}
+        {userData && (
+          <View style={styles.userDataContainer}>
+            <Text style={styles.userDataText}>User ID: {userData.data._id}</Text>
+          </View>
+        )}
 
         <TextInput
           style={styles.input}
@@ -115,7 +138,7 @@ const CreateRestaurent = ({navigation}) => {
         />
         <TextInput
           style={styles.input}
-          placeholder="Enter Restaurant area"
+          placeholder="Enter Restaurant Area"
           value={area}
           onChangeText={setArea}
         />
@@ -143,7 +166,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: 15,
-    // borderWidth: 1,
   },
   title: {
     fontSize: 24,
@@ -179,5 +201,13 @@ const styles = StyleSheet.create({
   imagePlaceholder: {
     color: '#888',
   },
+  userDataContainer: {
+    marginBottom: 15,
+  },
+  userDataText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
+
 export default CreateRestaurent;

@@ -4,6 +4,7 @@ import {
   DELETE_USER_LOADING,
   DELETE_USER_SUCCESS,
 } from '../Type';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const DeleteUserAction = _id => {
   return async dispatch => {
@@ -11,13 +12,15 @@ export const DeleteUserAction = _id => {
       type: DELETE_USER_LOADING,
       payload: _id,
     });
+    const token = await AsyncStorage.getItem('token');
 
     try {
       let config = {
         method: 'delete',
-        url: ` https://uncertainty-laboratory-mel-springfield.trycloudflare.com/api/user/deleteUser/${_id}`,
+        url: ` https://compliance-obligation-pursuant-repairs.trycloudflare.com/api/user/deleteUser/${_id}`,
         headers: {
           'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
         },
       };
       console.log('API Response:', config);

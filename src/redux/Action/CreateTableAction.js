@@ -5,6 +5,7 @@ import {
   CREATE_TABLE_SUCCESS,
 } from '../Type';
 import {CreateTable} from './All_API_DATA';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const CreateTableAction = (tableNumber, id, capacity,navigation) => {
   return async dispatch => {
@@ -18,6 +19,7 @@ export const CreateTableAction = (tableNumber, id, capacity,navigation) => {
         restaurantId: id,
         capacity: capacity,
       };
+      const token = await AsyncStorage.getItem('token');
 
       console.log('CreateTableA Data ====>', data);
       const config = {
@@ -25,6 +27,8 @@ export const CreateTableAction = (tableNumber, id, capacity,navigation) => {
         url: CreateTable,
         headers: {
           'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+
         },
         data: JSON.stringify(data),
       };
